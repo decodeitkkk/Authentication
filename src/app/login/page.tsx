@@ -1,4 +1,5 @@
 "use client";
+import { sendEmail } from "@/helpers/mailer";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,7 +27,8 @@ export default function LoginPage() {
             console.log(`login successfull`,response.data)
             router.push("/profile")
         } catch (error:any) {
-            console.log(`Error on login`, error)
+            console.log(error.response.data.message)
+            // console.log(`Error on login`, error)
         } finally{
             setLoading(false)
         }
@@ -35,6 +37,32 @@ export default function LoginPage() {
         setUser({ ...user, [e.target.name]: e.target.value });
         // console.log(e.target.name, e.target.value);
     };
+
+    // --------------------< FORGOT PASSWORD >--------------
+    let forgotPassword = async() =>{
+        if(user.email.length <= 0){
+            console.log(`enter a valid email address`)
+            return
+        }
+
+        console.log(user.email)
+        try {
+            let response = await axios.post("/api/users/searchemail",{email:user.email})
+            console.log(`frontend ${response?.data?.userId || response?.data?.message } `)    
+            let userId = response.data.userId || ""
+
+            if(response.data.status===true){
+                console.log(`reset password email sent`)
+            }else{
+                console.log(`invalid email id `)
+            }
+        } catch (error:any) {
+            console.log(error.message)
+        }
+        
+    }
+
+
     useEffect(()=>{
         if(user.email.length > 0 && user.password.length > 0){
             setButtonDisabled(false)
@@ -100,6 +128,16 @@ export default function LoginPage() {
                             
                         >
                             <Link href="/signup" >Go to Signup</Link>
+                            
+                        </button>
+                    </div>
+                    <div className="my-2">
+                        <button
+                            type="button"
+                            className="py-3 px-4   bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                            onClick={forgotPassword}
+                        >
+                            Forgot Password
                             
                         </button>
                     </div>
