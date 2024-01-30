@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const page = () => {
     const [DisplayPassword, setDisplayPassword] = useState(false);
@@ -21,11 +22,11 @@ const page = () => {
     let onSubmit = async (e: any) => {
         e.preventDefault();
         if(userPassword.newPassword1.length == 0 || userPassword.newPassword2.length == 0  ){
-            console.log(`Enter Password`)
+            toast.error(`Enter Password`)
             return
         }
         if (userPassword.newPassword1 !== userPassword.newPassword2) {
-            console.log(`password not matched`);
+            toast.error(`password not matched`);
             return;
         }
         let token = window.location.search.split("=")[1];
@@ -37,8 +38,14 @@ const page = () => {
                 password: userPassword.newPassword1,
                 token,
             });
-            console.log(response);
-        } catch (error) {
+            if(response.data.success){
+                toast.success(response.data.message)
+            }else{
+                toast.error(response.data.message)
+            }
+            // console.log(response.data.message);
+        } catch (error:any) {
+            toast.error(error)
             console.log(error);
         }
     };
@@ -62,6 +69,7 @@ const page = () => {
     return (
         <>
             <div className="h-screen flex justify-center items-center ">
+                <Toaster/>
                 <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
                     <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                         Reset Your Password

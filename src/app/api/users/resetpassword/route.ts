@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         let user = await User.findOne({forgotPasswordToken:token, forgotPasswordTokenExpiry:{$gt : Date.now()}})
 
         if(!user){
-            return NextResponse.json({error:`Invalid token`})
+            return NextResponse.json({message:`Invalid token or token expired`,success:false})
         }
 
         let hashedPassword = await bcryptjs.hash(password,10)
@@ -23,12 +23,12 @@ export async function POST(request: NextRequest) {
         user.forgotPasswordTokenExpiry = undefined
         await user.save()
 
-        return NextResponse.json({message:`Password updated successfully`,user})
+        return NextResponse.json({message:`Password updated successfully`,success:true,user})
 
 
 
 
     } catch (error: any) {
-        return NextResponse.json({ message: error.message });
+        return NextResponse.json({ error: error.message });
     }
 }
