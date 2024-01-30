@@ -35,6 +35,14 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
                 pass: process.env.GMAIL_PASS,
             },
         });
+        transport.verify(function(error, success) {
+            if (error) {
+                console.log('SMTP connection error:', error);
+            } else {
+                console.log('SMTP connection successful:', success);
+            }
+        });
+        
 
         const mailOptions = {
             from: "kailashdaphnis@gmail.com",
@@ -59,6 +67,8 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
         };
 
         const mailResponse = await transport.sendMail(mailOptions);
+        return mailResponse
+        // console.log(`this is mail response `,mailResponse)
     } catch (error: any) {
         throw new Error(error.message);
     }

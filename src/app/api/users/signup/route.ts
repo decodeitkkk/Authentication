@@ -5,7 +5,7 @@ import bcryptjs from "bcryptjs";
 import { sendEmail } from "@/helpers/mailer";
 
 connect();
- 
+
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();
@@ -31,20 +31,36 @@ export async function POST(request: NextRequest) {
         });
 
         const savedUser = await newUser.save();
-        console.log(Date.now())
+        console.log(Date.now());
         console.log(savedUser);
 
         // SENDING VERIFICATION EMAIL
-        await sendEmail({email, emailType:"VERIFY",userId:savedUser._id})
+        let mailResponse = await sendEmail({
+            email,
+            emailType: "VERIFY",
+            userId: savedUser._id,
+        });
+        console.log(`this is mail response `, mailResponse);
 
-        return NextResponse.json(
-            {
-                message: "User saved successfully",
-                success: true,
-                savedUser,
-            },
-            { status: 201 }
-        );
+        if (savedUser && mailResponse != undefined) {
+            return NextResponse.json(
+                {
+                    message: "Verification email sent",
+                    success: true,
+                    savedUser,
+                },
+                { status: 201 }
+            );
+        }else{
+            return NextResponse.json(
+                {
+                    message: "Signup successfull, verification mail not sent",
+                    success: true,
+                    savedUser,
+                },
+                { status: 201 }
+            );
+        }
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
