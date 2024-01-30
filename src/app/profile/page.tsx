@@ -19,9 +19,16 @@ const page = () => {
         setData(response.data.data._id);
         console.log(`get user details `, response.data.data._id);
     };
-    
+
+    useEffect(()=>{
+        getUserDetails()
+        router.push(`/profile/${data}`)
+    },[data])
+
     return (
         <>
+          
+
             <div className="flex justify-center items-center h-screen flex-col ">
                 <div>Welcome to Profile Page </div>
                 <button
@@ -36,7 +43,11 @@ const page = () => {
                     className="rounded-md border border-blue-400 px-4 py-2 text-sm my-4 font-semibold text-blue-700 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                     onClick={getUserDetails}
                 >
-                    {data ==="" ? "Nothing" : <Link href={`/profile/${data}`}> {data} </Link> }
+                    {data === "" ? (
+                        "Nothing"
+                    ) : (
+                        <Link href={`/profile/${data}`}> {data} </Link>
+                    )}
                 </button>
                 <button
                     type="button"

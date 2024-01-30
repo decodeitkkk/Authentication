@@ -13,7 +13,7 @@ export async function POST(request: NextResponse) {
         let user = await User.findOne({forgotPasswordToken:token, forgotPasswordTokenExpiry:{$gt : Date.now()}})
 
         if(!user){
-            return NextResponse.json({message:`Invalid token`})
+            return NextResponse.json({error:`Invalid token`})
         }
 
         let hashedPassword = await bcryptjs.hash(password,10)

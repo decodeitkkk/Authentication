@@ -1,45 +1,63 @@
 "use client";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const page = () => {
     const [DisplayPassword, setDisplayPassword] = useState(false);
+    const [hide, setHide] = useState(true);
+    const [error, setError] = useState(false)
     const [userPassword, setUserPassword] = useState({
-        newPassword1:"",
-        newPassword2:""
-    })
+        newPassword1: "",
+        newPassword2: "",
+    });
 
-    let handlePasswordChange =(e:any)=>{
-        setUserPassword((prev)=> ({...prev, [e.target.name]:e.target.value}))
-    }
+    let handlePasswordChange = (e: any) => {
+        setUserPassword((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    };
 
-    let onSubmit = async(e:any) =>{
-        e.preventDefault()
-        if(userPassword.newPassword1 !== userPassword.newPassword2){
-            console.log(`password not matched`)
+    let onSubmit = async (e: any) => {
+        e.preventDefault();
+        if(userPassword.newPassword1.length == 0 || userPassword.newPassword2.length == 0  ){
+            console.log(`Enter Password`)
             return
         }
-        let token = window.location.search.split("=")[1]
-        
-        console.log(userPassword.newPassword1,token)
+        if (userPassword.newPassword1 !== userPassword.newPassword2) {
+            console.log(`password not matched`);
+            return;
+        }
+        let token = window.location.search.split("=")[1];
+
+        console.log(userPassword.newPassword1, token);
 
         try {
-            let response = await axios.post("/api/users/resetpassword",{password:userPassword.newPassword1,token})
-            console.log(response)
+            let response = await axios.post("/api/users/resetpassword", {
+                password: userPassword.newPassword1,
+                token,
+            });
+            console.log(response);
         } catch (error) {
-            console.log(error)
-            
+            console.log(error);
         }
-    }
-
-    let showPassword = (e:any) => {
-        e.preventDefault();
-        console.log(e.target);
-
-        // let inputPassword = document.querySelectorAll("input")
-        // inputPassword[0].type = "text";
-        // console.log(inputPassword[0].type)
     };
+
+    let showPassword = (e: any) => {
+        e.preventDefault();
+        setHide((prev) => !prev);
+    };
+
+    useEffect(()=>{
+        let match = ()=>{
+            if(userPassword.newPassword2 === userPassword.newPassword1){
+                setError(false)
+            }else{
+                setError(true)
+            }
+        }
+        match()
+    },[userPassword.newPassword2])
 
     return (
         <>
@@ -53,17 +71,17 @@ const page = () => {
                             <div className="flex flex-col mb-6">
                                 <div className="flex relative ">
                                     <input
-                                        type="text"
+                                        type={hide ? "password":"text"}
                                         id="newPassword1"
                                         name="newPassword1"
                                         value={userPassword.newPassword1}
                                         onChange={handlePasswordChange}
                                         className=" rounded-l-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                        placeholder="Your password"
+                                        placeholder="New Password"
                                     />
 
                                     <span className="rounded-r-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                                        <button onClick={showPassword}>
+                                        <button type="button" onClick={showPassword}>
                                             <svg
                                                 width="15"
                                                 height="15"
@@ -80,17 +98,17 @@ const page = () => {
                             <div className="flex flex-col mb-6">
                                 <div className="flex relative ">
                                     <input
-                                        type="text"
+                                        type={hide ? "password":"text"}
                                         id="newPassword2"
                                         name="newPassword2"
                                         value={userPassword.newPassword2}
                                         onChange={handlePasswordChange}
                                         className=" rounded-l-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                        placeholder="Your password"
+                                        placeholder=" Confirm Password"
                                     />
 
                                     <span className="rounded-r-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                                        <button onClick={showPassword}>
+                                        <button type="button" onClick={showPassword}>
                                             <svg
                                                 width="15"
                                                 height="15"
@@ -104,29 +122,30 @@ const page = () => {
                                     </span>
                                 </div>
                             </div>
+                            <div className="flex items-center justify-center mb-6 ">
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
+                                >
+                                    <span 
+                                    className={` ml-2 font-semibold  ${error ? "text-red-600" : "text-white" } `}
+                                    >
+                                        {error ? "Password Not Matching" : ""}
+                                    </span>
+                                </a>
+                            </div>
 
-                            
                             <div className="flex w-full">
                                 <button
                                     type="submit"
                                     className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                     onClick={onSubmit}
                                 >
-                                    Submit 
+                                    Submit
                                 </button>
                             </div>
                         </form>
-                    </div>
-                    <div className="flex items-center justify-center mt-6">
-                        <a
-                            href="#"
-                            target="_blank"
-                            className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
-                        >
-                            <span className="ml-2">
-                                You don&#x27;t have an account?
-                            </span>
-                        </a>
                     </div>
                 </div>
             </div>
