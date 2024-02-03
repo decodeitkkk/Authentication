@@ -5,19 +5,21 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-
 const page = ({ params }: any) => {
     let router = useRouter();
     const [data, setData] = useState({
-        username:"random",
-        email:"email@gmail.com"
-
+        username: "random",
+        email: "email@gmail.com",
     });
 
     let onLogout = async () => {
-        let response = await axios.get("/api/users/logout");
-        toast.success(`logout successfull`);
-        router.push("/login");
+        try {
+            let response = await axios.get("/api/users/logout");
+            toast.success(`logout successfull`);
+            router.push("/login");
+        } catch (error: any) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -36,13 +38,16 @@ const page = ({ params }: any) => {
 
     return (
         <>
-        <Toaster />
-            <main className="relative h-screen  overflow-hidden font-mono bg-white dark:bg-gray-800">
+            <Toaster />
+            <main className="relative   overflow-hidden font-mono bg-white dark:bg-gray-800">
                 <div className="absolute hidden md:block -bottom-16 -left-24 w-96 h-72">
                     <div className="absolute z-20 text-xl text-extrabold right-20 text-start top-1/4">
                         <span className="text-7xl">🎨</span>
                         <p className="text-slate-600">Got a project ?</p>
-                        <Link href="/contact" className="underline text-slate-600 ">
+                        <Link
+                            href="/contact"
+                            className="underline text-slate-600 "
+                        >
                             Let&#x27;s talk
                         </Link>
                     </div>
@@ -76,7 +81,7 @@ const page = ({ params }: any) => {
                         </div>
                         <div className="flex items-center">
                             <nav className="items-center hidden text-lg text-gray-800 uppercase font-sen dark:text-white lg:flex">
-                            <Link
+                                <Link
                                     href="/"
                                     className="flex px-6 py-2 hover:text-black"
                                 >

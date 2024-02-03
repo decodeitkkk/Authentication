@@ -1,94 +1,130 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuIndicator,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
+import { Menu } from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 ">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Start by &nbsp;
-          <code className="font-mono font-bold">Singup</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    const [btn, setBtn] = useState(false);
+    // const router = useRouter()
+    // useEffect(()=>{
+    //   router.push('/login')
+    // },[])
+
+    let handleMenu = () => {
+        setBtn((prev) => !prev);
+    };
+    let button = document.querySelector("#menu-button");
+    // let menu = document.querySelector("#menu");
+    // button?.addEventListener("click", () => {
+    //     menu?.classList.toggle("hidden");
+    // });
+
+    return (
+        <div className="relative h-screen overflow-hidden bg-gray-600">
+            <img
+                src="home4.jpg"
+                className="absolute object-cover bg-right w-full h-full"
             />
-          </a>
+            <div className="absolute inset-0 "></div>
+            <header className="absolute top-0 left-0 right-0 z-20">
+                <nav className="container px-6 py-4 mx-auto md:px-12">
+                    <div className="items-center justify-between md:flex">
+                        <div className="flex items-center justify-between">
+                            <Link href="/" className="text-white">
+                                <svg
+                                    className="w-8 mr-2 fill-current"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    data-name="Capa 1"
+                                    viewBox="0 0 16.16 12.57"
+                                >
+                                    <defs></defs>
+                                    <path d="M14.02 4.77v7.8H9.33V8.8h-2.5v3.77H2.14v-7.8h11.88z"></path>
+                                    <path d="M16.16 5.82H0L8.08 0l8.08 5.82z"></path>
+                                </svg>
+                            </Link>
+                            <div className="md:hidden">
+                                <button
+                                    className="text-white focus:outline-none"
+                                    onClick={handleMenu}
+                                >
+                                    <svg
+                                        className="w-12 h-12"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M4 6H20M4 12H20M4 18H20"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            className={`items-center ${
+                                btn ? "block" : "hidden"
+                            } bg-indigo-700 flex flex-col gap-y-4 rounded-xl py-4  md:flex md:flex-row md:px-10 md:gap-x-5 `}
+                        >
+                            <Link
+                                href="/signup"
+                                className="mx-3 text-lg text-white uppercase cursor-pointer hover:text-gray-300"
+                            >
+                                Signup
+                            </Link>
+                            <Link
+                                href="/login"
+                                className="mx-3 text-lg text-white uppercase cursor-pointer hover:text-gray-300"
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                href="/contact"
+                                className="mx-3 text-lg text-white uppercase cursor-pointer hover:text-gray-300"
+                            >
+                                Contact us
+                            </Link>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <div className="container relative z-10 flex items-end  h-[100%] px-6 py-32 mx-auto md:px-12 xl:py-40">
+                <div className="relative z-10 flex flex-col items-start   lg:w-3/5 xl:w-2/5">
+                    <span className="font-bold text-yellow-400 uppercase">
+                        Authentication App
+                    </span>
+                    <h1 className="mt-4  text-4xl font-bold leading-tight text-white sm:text-7xl">
+                        My Destiny Is
+                        <br />
+                        Mine
+                        <br />
+                        To Weave
+                    </h1>
+                    <Link
+                        href="/signup"
+                        className="block px-4 py-3 mt-10 text-lg font-bold text-gray-800 uppercase bg-white rounded-lg hover:bg-gray-100"
+                    >
+                        Signup
+                    </Link>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        
-        <div className="text-5xl font-semibold ">Authentication System</div>
-        
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <Link
-          href="/signup"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-         
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Signup{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </Link>
-
-        <Link
-          href="/login"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Login {" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </Link>
-
-        <Link
-          href="/profile"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Profile{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </Link>
-
-        
-      </div>
-    </main>
-  );
+    );
 }
