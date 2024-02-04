@@ -1,4 +1,5 @@
 "use client";
+import Navbar from "@/components/Navbar/page";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -39,7 +40,7 @@ const page = ({ params }: any) => {
     return (
         <>
             <Toaster />
-            <main className="relative   overflow-hidden font-mono bg-white dark:bg-gray-800">
+            <main className="relative h-[100vh] w-[100vw]   font-mono bg-white dark:bg-gray-800">
                 <div className="absolute hidden md:block -bottom-16 -left-24 w-96 h-72">
                     <div className="absolute z-20 text-xl text-extrabold right-20 text-start top-1/4">
                         <span className="text-7xl">🎨</span>
@@ -63,51 +64,8 @@ const page = ({ params }: any) => {
                         ></path>
                     </svg>
                 </div>
-                <header className="z-30 flex items-center w-full h-24 sm:h-20">
-                    <div className="container flex items-center justify-between px-6 mx-auto">
-                        <div className="flex items-center text-3xl font-black text-gray-800 uppercase dark:text-white">
-                            <svg
-                                width="25"
-                                height="20"
-                                viewBox="0 0 1792 1792"
-                                fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path d="M1664 1504v-768q-32 36-69 66-268 206-426 338-51 43-83 67t-86.5 48.5-102.5 24.5h-2q-48 0-102.5-24.5t-86.5-48.5-83-67q-158-132-426-338-37-30-69-66v768q0 13 9.5 22.5t22.5 9.5h1472q13 0 22.5-9.5t9.5-22.5zm0-1051v-24.5l-.5-13-3-12.5-5.5-9-9-7.5-14-2.5h-1472q-13 0-22.5 9.5t-9.5 22.5q0 168 147 284 193 152 401 317 6 5 35 29.5t46 37.5 44.5 31.5 50.5 27.5 43 9h2q20 0 43-9t50.5-27.5 44.5-31.5 46-37.5 35-29.5q208-165 401-317 54-43 100.5-115.5t46.5-131.5zm128-37v1088q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1472q66 0 113 47t47 113z"></path>
-                            </svg>
-                            <span className="mt-1 ml-3 text-xs">
-                                {data?.email}
-                            </span>
-                        </div>
-                        <div className="flex items-center">
-                            <nav className="items-center hidden text-lg text-gray-800 uppercase font-sen dark:text-white lg:flex">
-                                <Link
-                                    href="/"
-                                    className="flex px-6 py-2 hover:text-black"
-                                >
-                                    Home
-                                </Link>
-                                <Link
-                                    href="/contact"
-                                    className="flex px-6 py-2 hover:text-black"
-                                >
-                                    Contact
-                                </Link>
-                                <Link
-                                    href="#"
-                                    className="flex px-6 py-2 hover:text-black"
-                                    onClick={onLogout}
-                                >
-                                    Logout
-                                </Link>
-                            </nav>
-                            <button className="flex flex-col ml-4 lg:hidden">
-                                <span className="w-6 h-1 mb-1 bg-gray-800 dark:bg-white"></span>
-                                <span className="w-6 h-1 mb-1 bg-gray-800 dark:bg-white"></span>
-                                <span className="w-6 h-1 mb-1 bg-gray-800 dark:bg-white"></span>
-                            </button>
-                        </div>
-                    </div>
+                <header className="">
+                    <Navbar logout={onLogout} />
                 </header>
                 <div className="relative z-20 flex items-center">
                     <div className="container relative flex flex-col items-center justify-between px-6 py-4 mx-auto">
@@ -119,7 +77,7 @@ const page = ({ params }: any) => {
                             <p className="my-6 text-3xl text-center capitalize dark:text-white">
                                 Welcome, {data?.username} 🤘
                             </p>
-                            <h2 className="max-w-3xl py-2 mx-auto text-5xl font-bold text-center text-gray-800 md:text-6xl dark:text-white">
+                            <h2 className="max-w-3xl py-2 mx-auto text-3xl  font-bold text-center text-gray-800 md:text-6xl dark:text-white">
                                 Building digital products, brands, and
                                 experiences.
                             </h2>

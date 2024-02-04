@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Navbar from "@/components/Navbar/page";
 
 function Contact() {
     const [loading, setLoading] = useState(false);
@@ -56,7 +57,10 @@ function Contact() {
     return (
         <div>
             <Toaster />
-            <div className="mx-auto max-w-7xl px-4 dark:text-white h-[95vh] overflow-y-hidden ">
+            <div className="mx-auto max-w-7xl px-4 dark:text-white h-[95vh]  ">
+                <header className="">
+                    <Navbar />
+                </header>
                 <div className="mx-auto max-w-7xl py-12 md:pt-20">
                     <div className="grid items-center justify-items-center gap-x-4 gap-y-5 lg:grid-cols-2">
                         {/* contact from */}
