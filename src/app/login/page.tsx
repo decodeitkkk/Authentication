@@ -5,37 +5,37 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { Eye, EyeOff, Facebook, Github, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [hide, setHide] = useState(true)
+    const [hide, setHide] = useState(true);
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({
         email: "",
         password: "",
     });
-    
 
     const router = useRouter();
     const onLogin = async () => {
         if (buttonDisabled) {
-            toast.error('Fill the form')
+            toast.error("Fill the form");
             return;
         }
         try {
             setLoading(true);
-            
+
             // console.log(`here in try`, user);
             const response = await axios.post("/api/users/login", user);
             toast.success(`Login successfull`);
             router.push("/profile");
         } catch (error: any) {
-
             toast.error(error.response.data.error);
             // console.log(`Error on login`, error)
         } finally {
             setLoading(false);
-            setButtonDisabled(false)
+            setButtonDisabled(false);
         }
     };
     let handleChange = (e: any) => {
@@ -44,35 +44,35 @@ export default function LoginPage() {
     };
 
     // --------------------< FORGOT PASSWORD >--------------
-    let forgotPassword = async () => {
-        if (user.email.length <= 0) {
-            toast.error(`Fill the email field.`);
-            return;
-        }
+    // let forgotPassword = async () => {
+    //     if (user.email.length <= 0) {
+    //         toast.error(`Fill the email field.`);
+    //         return;
+    //     }
 
-        // console.log(user.email);
-        try {
-            let response = await axios.post("/api/users/searchemail", {
-                email: user.email,
-            });
-            // console.log(
-            //     `frontend ${response?.data?.userId || response?.data?.message} `
-            // );
-            let userId = response.data.userId || "";
+    //     // console.log(user.email);
+    //     try {
+    //         let response = await axios.post("/api/users/searchemail", {
+    //             email: user.email,
+    //         });
+    //         // console.log(
+    //         //     `frontend ${response?.data?.userId || response?.data?.message} `
+    //         // );
+    //         let userId = response.data.userId || "";
 
-            if (response.data.status === true) {
-                toast.success(`Reset password email sent`);
-            } else {
-                toast.error(`Invalid email id for password reset `);
-            }
-        } catch (error: any) {
-            toast.error(error.message);
-        }
+    //         if (response.data.status === true) {
+    //             toast.success(`Reset password email sent`);
+    //         } else {
+    //             toast.error(`Invalid email id for password reset `);
+    //         }
+    //     } catch (error: any) {
+    //         toast.error(error.message);
+    //     }
+    // };
+
+    const handleHide = () => {
+        setHide((prev) => !prev);
     };
-
-    const handleHide = ()=>{
-        setHide((prev)=>!prev)
-    }
 
     useEffect(() => {
         if (user.email.length > 0 && user.password.length > 0) {
@@ -84,9 +84,132 @@ export default function LoginPage() {
 
     return (
         <>
-        <Toaster />
-            <div className=" h-screen flex justify-center items-center mx-10 ">
-                <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+            <Toaster />
+            <div className="dark:bg-indigo-900 h-[100vh] w-min-[350px] w-max-[639px] sm:w-[100vw] box-border ">
+                <div className=" py-2 px-4 h-[15%]  ">
+                    <img src="Group 47603.png" />
+                </div>
+                <div className=" h-[75%] w-[100%] sm:w-[100%] flex items-center sm:justify-start   ">
+                    <div className="  mx-auto w-[80%] sm:w-[35%] sm:mx-28  box-border ">
+                        <div className="  my-10 font-bold   ">
+                            <div className="text-4xl dark:text-white">
+                                Login
+                            </div>
+                            <div className="font-light my-3 text-sm dark:text-white ">
+                                Let’s get you all st up so you can access your
+                                personal account.
+                            </div>
+                        </div>
+                        <div className="form">
+                            <form action="#" autoComplete="off">
+                                <div className="flex flex-col mb-2">
+                                    <div className="flex relative ">
+                                        <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                            <Mail />
+                                        </span>
+                                        <input
+                                            type="text"
+                                            id="email"
+                                            name="email"
+                                            value={user.email}
+                                            onChange={handleChange}
+                                            className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                            placeholder="Your email"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col mb-6">
+                                    <div className="flex relative ">
+                                        <span
+                                            className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm"
+                                            onClick={handleHide}
+                                        >
+                                            {hide ? <EyeOff /> : <Eye />}
+                                        </span>
+                                        <input
+                                            type={hide ? "password" : "text"}
+                                            id="password"
+                                            name="password"
+                                            value={user.password}
+                                            onChange={handleChange}
+                                            className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                            placeholder="Your password"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex items-center mb-6 -mt-4">
+                                    <div className="flex ml-auto">
+                                        <Link
+                                            href="/forgotpassword"
+                                            type="button"
+                                            className="inline-flex text-xs font-light text-red-700 sm:text-sm dark:text-white 
+                                            dark:font-medium hover:text-gray-700 dark:hover:text-white"
+                                            
+                                        >
+                                            Forgot Your Password?
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="flex w-full">
+                                    <button
+                                        type="button"
+                                        className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                        onClick={onLogin}
+                                    >
+                                        {buttonDisabled
+                                            ? "Fill Details"
+                                            : loading
+                                            ? "Processing..."
+                                            : "Login"}
+                                    </button>
+                                </div>
+                                <div className=" mb-6 mt-2">
+                                    <div className="flex ml-auto justify-center ">
+                                        <Link
+                                            href="/signup"
+                                            type="button"
+                                            className="inline-flex text-xs font-light text-dark-700 sm:text-sm dark:text-white hover:text-gray-700 dark:hover:text-white"
+                                        >
+                                            Don’t have an account? &nbsp;
+                                            <span className="text-red-700 dark:text-white dark:font-medium">
+                                                Sign up
+                                            </span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div className="flex items-center">
+                            <hr className="flex-grow border-t border-gray-400" />
+                            <div className="mx-4 font-light text-sm ">
+                                Or login with
+                            </div>
+                            <hr className="flex-grow border-t border-gray-400" />
+                        </div>
+                        <div className="flex justify-center gap-2  my-5">
+                            <Button variant="outline" size="sm">
+                                {" "}
+                                Google{" "}
+                            </Button>
+                            <Button variant="outline" size="sm">
+                                {" "}
+                                Facebook{" "}
+                            </Button>
+                            <Button variant="outline" size="sm">
+                                GitHub
+                            </Button>
+                        </div>
+                    </div>
+                    <div className=" hidden sm:block sm:h-[100%]  sm:mx-auto ">
+                        <img
+                            src="Group 4.png"
+                            className="object-contain  shadow-lg w-[100%] h-[100%] "
+                            alt=""
+                        />
+                    </div>
+                </div>
+            </div>
+            {/* <div className="flex justify-center items-center  flex-col h-screen max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
                     <div className="self-center text-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                         Login To Your Account
                     </div>
@@ -158,13 +281,11 @@ export default function LoginPage() {
                                     className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                     onClick={onLogin}
                                 >
-                                    {
-                                    buttonDisabled
+                                    {buttonDisabled
                                         ? "Fill Details"
                                         : loading
                                         ? "Processing..."
-                                        : "Login"
-                                    }
+                                        : "Login"}
                                 </button>
                             </div>
                         </form>
@@ -172,86 +293,14 @@ export default function LoginPage() {
                     <div className="flex items-center justify-center mt-6">
                         <Link
                             href="/signup"
-                            
                             className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
                         >
                             <span className="ml-2">
-
                                 You don&#x27;t have an account?
                             </span>
                         </Link>
                     </div>
-                </div>
-            </div>
-            {/* <div className="">
-                <div className="text-center text-white text-2xl">
-                    <h1 className="my-10">Login Page</h1>
-                    <div className="flex flex-col  items-end w-9/12   ">
-                        <div className="my-2">
-                            <label className=" text-4xl " htmlFor="email">
-                                Email :{" "}
-                            </label>
-                            <input
-                                className="text-black px-4 py-2 rounded-md"
-                                onChange={(e) => {
-                                    handleChange(e);
-                                }}
-                                value={user.email}
-                                type="text"
-                                placeholder="email"
-                                name="email"
-                                id="email"
-                            />
-                        </div>
-                        <div className="my-2">
-                            <label className=" text-4xl " htmlFor="password">
-                                Password :{" "}
-                            </label>
-                            <input
-                                className="text-black px-4 py-2 rounded-md"
-                                onChange={(e) => {
-                                    handleChange(e);
-                                }}
-                                value={user.password}
-                                type="text"
-                                placeholder="password"
-                                name="password"
-                                id="password"
-                            />
-                        </div>
-                    </div>
-                    <div className="my-2">
-                        <button
-                            type="button"
-                            className="py-3 px-6  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full"
-                            onClick={onLogin}
-                        >
-                            {buttonDisabled
-                                ? "No Login"
-                                : loading
-                                ? "Processing..."
-                                : "Login"}
-                        </button>
-                    </div>
-                    <div className="my-2">
-                        <button
-                            type="button"
-                            className="py-3 px-4   bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                        >
-                            <Link href="/signup">Go to Signup</Link>
-                        </button>
-                    </div>
-                    <div className="my-2">
-                        <button
-                            type="button"
-                            className="py-3 px-4   bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                            onClick={forgotPassword}
-                        >
-                            Forgot Password
-                        </button>
-                    </div>
-                </div>
-            </div> */}
+                </div> */}
         </>
     );
 }
