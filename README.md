@@ -1,8 +1,15 @@
 ##  Provide These .env Files Variables 
 ```
-MONGO_URL:
-TOKEN_SECRET:
-DOMAIN:
+# MONGO_URL = 
+MONGO_URL = "mongodb://localhost:27017"
+TOKEN_SECRET= 
+DOMAIN= 
+NODEMAILER_USER =  
+NODEMAILER_PASS = 
+GMAIL_USER = 
+GMAIL_PASS = 
+SERVICE=
+PORT=
 ```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
