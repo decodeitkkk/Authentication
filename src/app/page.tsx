@@ -19,17 +19,13 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar/page";
 
 export default function Home() {
-  
-    
-
-   
-    
-    
-
     return (
         <div className="relative h-screen overflow-hidden bg-gray-600">
-            <img
-                src="home4.jpg"
+            <Image
+                width={1000}
+                height={1000}
+                alt="Picture of the author"
+                src="/home4.jpg"
                 className="absolute object-cover bg-right w-full h-full"
             />
             <div className="absolute inset-0 "></div>

@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Eye, EyeOff, Facebook, Github, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function LoginPage() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -87,7 +88,12 @@ export default function LoginPage() {
             <Toaster />
             <div className="dark:bg-indigo-900 h-[100vh] w-min-[350px] w-max-[639px] sm:w-[100vw] box-border ">
                 <div className=" py-2 px-4 h-[15%]  ">
-                    <img src="Group 47603.png" />
+                    <Image
+                        width={200}
+                        height={100}
+                        alt="logo"
+                        src="/Group 47603.png"
+                    />
                 </div>
                 <div className=" h-[75%] w-[100%] sm:w-[100%] flex items-center sm:justify-start   ">
                     <div className="  mx-auto w-[80%] sm:w-[35%] sm:mx-28  box-border ">
@@ -144,7 +150,6 @@ export default function LoginPage() {
                                             type="button"
                                             className="inline-flex text-xs font-light text-red-700 sm:text-sm dark:text-white 
                                             dark:font-medium hover:text-gray-700 dark:hover:text-white"
-                                            
                                         >
                                             Forgot Your Password?
                                         </Link>
@@ -201,10 +206,12 @@ export default function LoginPage() {
                         </div>
                     </div>
                     <div className=" hidden sm:block sm:h-[100%]  sm:mx-auto ">
-                        <img
-                            src="Group 4.png"
+                        <Image
+                            height={100}
+                            width={1000}
+                            src="/Group 4.png"
                             className="object-contain  shadow-lg w-[100%] h-[100%] "
-                            alt=""
+                            alt="homepage image"
                         />
                     </div>
                 </div>

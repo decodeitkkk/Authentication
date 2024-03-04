@@ -4,6 +4,8 @@ import { Menu, X, MapPin } from "lucide-react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar/page";
+import Image from "next/image";
+
 
 function Contact() {
     const [loading, setLoading] = useState(false);
@@ -161,10 +163,12 @@ function Contact() {
                                 </form>
                             </div>
                         </div>
-                        <img
+                        <Image
+                            height={100}
+                            width={1000}
                             alt="Contact us"
                             className="hidden max-h-full w-full rounded-lg object-cover lg:block"
-                            src="home4.jpg"
+                            src="/home4.jpg"
                         />
                     </div>
                 </div>

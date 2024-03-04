@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { ChevronLeft, Mail } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -47,16 +48,23 @@ const page = () => {
             <Toaster />
             <div className="dark:bg-gray-600 h-[100vh] w-min-[350px] w-max-[639px] sm:w-[100vw] box-border ">
                 <div className=" py-2 px-4 h-[15%]  ">
-                    <img src="Group 47603.png" />
+                    <Image
+                        width={200}
+                        height={100}
+                        alt="logo"
+                        src="/Group 47603.png"
+                    />
                 </div>
                 <div className=" h-[75%] w-[100%] sm:w-[100%] flex items-center sm:justify-start   ">
                     <div className="  mx-auto w-[80%] sm:w-[35%] sm:mx-28  box-border ">
-                        <div className="text-sm my-4 flex justify-start flex-row items-center ">
-                            <Link href="/login">
-                                <ChevronLeft />
-                            </Link>
-                            Back to login
-                        </div>
+                        <Link href="/login">
+                            <div className="text-sm my-4 flex justify-start flex-row items-center ">
+                                <span>
+                                    <ChevronLeft />
+                                </span>
+                                Back to login
+                            </div>
+                        </Link>
                         <div className="  mb-5 font-bold   ">
                             <div className="text-4xl dark:text-white">
                                 Forgot your password ?
@@ -122,10 +130,12 @@ const page = () => {
                         </div>
                     </div>
                     <div className=" hidden sm:block sm:h-[100%]  sm:mx-auto ">
-                        <img
-                            src="Group 4.png"
+                        <Image
+                            width={1000}
+                            height={100}
+                            src="/Group 4.png"
                             className="object-contain  shadow-lg w-[100%] h-[100%] "
-                            alt=""
+                            alt="login image"
                         />
                     </div>
                 </div>

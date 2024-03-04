@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { ChevronLeft, Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { NextResponse } from "next/server";
 import React, { useEffect, useState } from "react";
@@ -54,7 +55,12 @@ export default function verifyEmailPage() {
             <Toaster />
             <div className="dark:bg-indigo-900 h-[100vh] w-min-[350px] w-max-[639px] sm:w-[100vw] box-border ">
                 <div className=" py-2 px-4 h-[15%]  ">
-                    <img src="Group 47603.png" />
+                    <Image
+                        height={100}
+                        width={200}
+                        alt="logo"
+                        src="/Group 47603.png"
+                    />
                 </div>
                 <div className=" h-[75%] w-[100%] sm:w-[100%] flex items-center sm:justify-start   ">
                     <div className="  mx-auto w-[80%] sm:w-[35%] sm:mx-28  box-border ">
@@ -186,10 +192,12 @@ export default function verifyEmailPage() {
                         </div>
                     </div>
                     <div className=" hidden sm:block sm:h-[100%]  sm:mx-auto ">
-                        <img
-                            src="emailverify.png"
+                        <Image
+                            height={100}
+                            width={1000}
+                            src="/emailverify.png"
                             className="object-contain  shadow-lg w-[100%] h-[100%] "
-                            alt=""
+                            alt="verify email"
                         />
                     </div>
                 </div>
