@@ -58,7 +58,7 @@ const page = () => {
                 <div className=" h-[75%] w-[100%] sm:w-[100%] flex items-center sm:justify-start   ">
                     <div className="  mx-auto w-[80%] sm:w-[35%] sm:mx-28  box-border ">
                         <Link href="/login">
-                            <div className="text-sm my-4 flex justify-start flex-row items-center ">
+                            <div className="text-sm my-4 flex justify-start flex-row items-center cursor-pointer ">
                                 <span>
                                     <ChevronLeft />
                                 </span>
