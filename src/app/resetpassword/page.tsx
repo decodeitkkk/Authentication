@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -76,7 +77,12 @@ const page = () => {
         <>
             <div className="dark:bg-indigo-900 h-[100vh] w-min-[350px] w-max-[639px] sm:w-[100vw] box-border ">
                 <div className=" py-2 px-4 h-[15%]  ">
-                    <img src="Group 47603.png" />
+                    <Image
+                        width={200}
+                        height={100}
+                        alt="logo"
+                        src="/Group 47603.png"
+                    />
                 </div>
                 <div className=" h-[75%] w-[100%] sm:w-[100%] flex items-center sm:justify-start   ">
                     <div className="  mx-auto w-[80%] sm:w-[35%] sm:mx-28  box-border ">
@@ -168,10 +174,12 @@ const page = () => {
                         </div>
                     </div>
                     <div className=" hidden sm:block sm:h-[100%]  sm:mx-auto ">
-                        <img
-                            src="resetpassword.png"
+                        <Image
+                            height={100}
+                            width={1000}
+                            src="/resetpassword.png"
                             className="object-contain  shadow-lg w-[100%] h-[100%] "
-                            alt=""
+                            alt="reset passsword"
                         />
                     </div>
                 </div>

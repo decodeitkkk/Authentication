@@ -3,7 +3,7 @@ import User from "@/models/userModel.js";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
- 
+
 connect();
 
 export async function POST(request: NextRequest) {
@@ -22,11 +22,18 @@ export async function POST(request: NextRequest) {
         }
         console.log(`user exist`);
 
+        if (user.isVerified === false) {
+            return NextResponse.json(
+                { error: `Please Verify your email id. Check your email.` },
+                { status: 400 }
+            );
+        }
+
         // CHECK IF PASSWORD IS CORRECT
         const validPassword = await bcryptjs.compare(password, user.password);
         if (!validPassword) {
             return NextResponse.json(
-                { error: `Invalid Password`,message:`invalid password` },
+                { error: `Invalid Password`, message: `invalid password` },
                 { status: 400 }
             );
         }
